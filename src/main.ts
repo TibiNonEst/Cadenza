@@ -1,3 +1,4 @@
+import Database from './utils/Database.js';
 import { Client, Intents } from 'discord.js';
 import dotenv from 'dotenv';
 import { Manager as Erela } from 'erela.js';
@@ -34,5 +35,7 @@ const erela = new Erela({
   ]
 });
 
-new Manager(client, config, erela);
+const database = new Database(config);
+
+new Manager(client, config, erela, database);
 new WebServer();

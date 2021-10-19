@@ -9,6 +9,18 @@ lavaLink:
   password: 'youshallnotpass'
   secure: true
 
+database:
+  # Options: redis, mongo, sqlite, postgres, mysql
+  # Leave empty to keep database in ram
+  type: ''
+  # sqlite only needs host as path to file
+  options:
+    host: ''
+    user: ''
+    password: ''
+    database: '' # Not required for redis
+    port: ''
+
 spotify:
   clientID: ''
   clientSecret: ''

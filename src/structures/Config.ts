@@ -11,6 +11,17 @@ export default interface Config {
     secure: boolean;
   };
 
+  database: {
+    type: string;
+    options: {
+      host: string;
+      user?: string;
+      password?: string;
+      database?: string;
+      port?: string;
+    };
+  };
+
   spotify: {
     clientID: string;
     clientSecret: string;

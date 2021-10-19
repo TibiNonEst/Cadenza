@@ -4,6 +4,7 @@ import { URL } from 'url';
 
 import type Command from '../structures/Command';
 import type Config from '../structures/Config';
+import type Database from '../utils/Database';
 import type { Channel, Client, ColorResolvable, Message, TextBasedChannels, TextChannel } from 'discord.js';
 import type { Manager as Erela } from 'erela.js';
 
@@ -12,12 +13,14 @@ export default class Manager {
   config: Config;
   erela: Erela;
   commands: Collection<string, Command>;
+  database: Database;
 
-  constructor(client: Client, config: Config, erela: Erela) {
+  constructor(client: Client, config: Config, erela: Erela, database: Database) {
     this.client = client;
     this.config = config;
     this.erela = erela;
     this.commands = new Collection();
+    this.database = database;
 
     Promise.all([this.loadCommands(), this.loadEvents()]).then(() => {
       client.login(config.token);
@@ -78,5 +81,13 @@ export default class Manager {
     color: string = this.config.embedColor
   ): Promise<void> {
     await this.returnEmbed(channel, content, color);
+  }
+
+  async dbGet(guildID: string, key: string): Promise<string> {
+    return await this.database.get(guildID + '_' + key);
+  }
+
+  async dbSet(guildID: string, key: string, value: string): Promise<void> {
+    await this.database.set(guildID + '_' + key, value);
   }
 }
