@@ -1,0 +1,14 @@
+prefix: '-'
+token: ''
+embedColor: 'RANDOM'
+
+lavaLink:
+  identifier: 'Main'
+  host: 'lava.link'
+  port: 2096
+  password: 'youshallnotpass'
+  secure: true
+
+spotify:
+  clientID: ''
+  clientSecret: ''
