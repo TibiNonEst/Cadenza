@@ -8,7 +8,8 @@ export default class MessageCreate {
   async run(manager: Manager, message: Message): Promise<void> {
     if (!message.guild || message.author.bot || message.channel.type === 'DM') return;
     const mentionPrefix = `<@!${manager.client.user?.id}> `;
-    const prefix = message.content.startsWith(mentionPrefix) ? mentionPrefix : manager.config.prefix;
+    const prefixString = (await manager.database.get(message.guild.id, 'prefix')) || manager.config.prefix;
+    const prefix = message.content.startsWith(mentionPrefix) ? mentionPrefix : prefixString;
 
     if (!message.content.startsWith(prefix)) return;
     const [name, ...args] = message.content.slice(prefix.length).trim().split(/\s+/g);

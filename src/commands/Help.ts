@@ -10,11 +10,10 @@ export default class Help implements Command {
   description = 'Learn about the bot commands';
 
   async run(message: Message, args: string[], manager: Manager): Promise<void> {
+    if (!message.guild) return;
+    const prefix = (await manager.database.get(message.guild.id, 'prefix')) || manager.config.prefix;
     const commands = manager.commands.map(
-      (command) =>
-        `\`${manager.config.prefix + command.name}${command.usage ? ' ' + command.usage : ''}\` - ${
-          command.description
-        }`
+      (command) => `\`${prefix + command.name}${command.usage ? ' ' + command.usage : ''}\` - ${command.description}`
     );
     const embed = new MessageEmbed().setTitle('Bot commands').setDescription(
       `${commands.join('\n')}\n
