@@ -82,12 +82,4 @@ export default class Manager {
   ): Promise<void> {
     await this.returnEmbed(channel, content, color);
   }
-
-  async dbGet(guildID: string, key: string): Promise<string> {
-    return await this.database.get(guildID + '_' + key);
-  }
-
-  async dbSet(guildID: string, key: string, value: string): Promise<void> {
-    await this.database.set(guildID + '_' + key, value);
-  }
 }
